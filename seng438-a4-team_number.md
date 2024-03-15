@@ -15,9 +15,13 @@
 # Analysis of 10 Mutants of the Range class 
 
 # Report all the statistics and the mutation score for each test class
+DataUtilities:
+Original:
+![old mutation](Images/DataUtilitiesOld.png)
+Updated:
+![new mutation](Images/DataUtilitiesUpdated.png)
 
-
-
+Originally when we ran the PIT mutation tests, we had a line coverage of 100%, a mutation coverage of 89% and a test strength of 89% as well. After updating the tests we were able get an increase of 4% for our mutation coverage. So after updating the tests we got a line coverage of 100%, a mutation coverage of 93% and a test strength of 93% as well.
 # Analysis drawn on the effectiveness of each of the test classes
 
 # A discussion on the effect of equivalent mutants on mutation score accuracy
