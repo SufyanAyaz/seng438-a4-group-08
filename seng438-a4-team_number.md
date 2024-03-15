@@ -29,6 +29,7 @@ Range:
 
 
 DataUtilities:
+
 We were tasked with increasing the mutation coverage of the DataUtilities class by 10%. However we were unable to achieve an increase of 10%. This was due to two main problems, with the first being that our old test cases were already really good as they originally yielded a mutation coverage of 89%. This would mean that we would need to reach a coverage of 99% in order to achieve the 10% increase. As we added new tests based on the mutations that survived we were able to kill off a fair bit of the surviving mutants. This then resulted in an increase of our mutation coverage by 4%. However we are unable to increase the result any further, due to the second issue which was equivalent mutants. Most of the remaining mutants after we increased the mutation score were equivalent mutants. This meant that they had the same behavior as the original code, as a result it is impossible to create tests for these cases. Originally we had started off with 79 mutants that had survived, but were able to decrease that number to 49 surviving mutants, with the remaining mutants being classified as equivalent mutants.
 
 
