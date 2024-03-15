@@ -710,8 +710,8 @@ public class DataUtilitiesTest extends DataUtilities {
 	    // Test for checking equality when arrays have same values.
 	    @Test
 	    public void testEqual_SameValues() {
-	        double[][] a = new double[][] { { 1.0, 2.0 }, { 3.0, 4.0 } };
-	        double[][] b = new double[][] { { 1.0, 2.0 }, { 3.0, 4.0 } };
+	        double[][] a = new double[][] { { 1.0, 2.0 }, { 3.0, 4.0 }, { 3.0, 4.0 } };
+	        double[][] b = new double[][] { { 1.0, 2.0 }, { 3.0, 4.0 }, { 3.0, 4.0 } };
 	        assertTrue(DataUtilities.equal(a, b));
 	    }
 
@@ -742,7 +742,9 @@ public class DataUtilitiesTest extends DataUtilities {
 	        assertFalse("Arrays should not be equal", result);
 	    }
 
-
+	    
+	    //negative difference, full negative 
+	    
 	    
 	    @Test
 	    public void calculateColumnTotalForTwoValues_ValidRows() {
@@ -794,6 +796,10 @@ public class DataUtilitiesTest extends DataUtilities {
 	        assertEquals("Unexpected result for calculateRowTotal", 0, result, .000000001d);
 	    }
 
+	    
+	    
+	    
+	    
 	    @Test
 	    public void testCloneNotNull() {
 	        // Testing that the clone method returns a non-null array
@@ -823,36 +829,285 @@ public class DataUtilitiesTest extends DataUtilities {
 	        }
 	    }
 
-//	    @Test
-//	    public void testCloneIndependence() {
-//	        // Testing that changing a value in the original array doesn't affect the cloned array
-//	        double[][] original = {{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}};
-//	        double[][] cloned = DataUtilities.clone(original);
-//	        original[0][0] = 100.0;
-//	        assertNotEquals(original[0][0], cloned[0][0]);
-//	    }
-
-//	    @Test
-//	    public void calculateColumnTotal_NegativeRowCount() {
-//	        // Testing column total calculation with negative row count
-//	        mockingContext.checking(new Expectations() {
-//	            {
-//	                one(values).getRowCount();
-//	                will(returnValue(-1));
-//	                one(values).getValue(0, 0);
-//	                will(returnValue(4));
-//	                one(values).getValue(0, 1);
-//	                will(returnValue(2));
-//	            }
-//	        });
-//
-//	        double result2 = DataUtilities.calculateColumnTotal(values, 0);
-//	        assertEquals(16.0, result2, .000000001d);
-//	    }
-
-		    
+	    @Test
+	    public void testCloneIndependence() {
+	        // Testing that changing a value in the original array doesn't affect the cloned array
+	        double[][] original = {{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}};
+	        double[][] cloned = DataUtilities.clone(original);
+	        original[0][0] = 100.0;
+	        assertNotEquals(original[0][0], cloned[0][0]);
+	    }
 	    
-		    
+	    
+	    
+	    
+	    
+	    
+	    
+	// ---------------------- NEW MUTATION TESTS -----------------------------------
+	    
+	    
+	    @Test
+		//Tests the clone method with a 2D array with a null entry
+		public void testCloneWithNullValues() {
+	        double[][] original = {{1.0, 2.0, 3.0}, null};
+			double[][] cloned = DataUtilities.clone(original);
+			boolean result = DataUtilities.equal(original, cloned);
+			assertTrue("Arrays should be equal", result);
+		}
+	    
+	    @Test(expected = IllegalArgumentException.class)
+	    public void testNullSourceArray() {
+	        // Testing that clone method throws IllegalArgumentException if source array is null
+	        double[][] original = null; // Source array is null
+	        DataUtilities.clone(original);
+	    }
 
-	    	    
+	    
+
+	    @Test(expected = IllegalArgumentException.class)
+	    public void testNullDataParameter() {
+	        // Testing that calculateColumnTotal throws IllegalArgumentException if data parameter is null
+	        Values2D data = null; // Data parameter is null
+	        DataUtilities.calculateColumnTotal(data, 0);
+	    }
+	    
+	    @Test(expected = IllegalArgumentException.class)
+	    public void testNullDataParameter_calculateColumnTotal() {
+	        // Testing that calculateColumnTotal throws IllegalArgumentException if data parameter is null
+	        Values2D data = null; // Data parameter is null
+	        DataUtilities.calculateColumnTotal(data, 0, new int[0]); // Passing an empty array as validRows
+	    }
+
+	    
+	    @Test(expected = IllegalArgumentException.class)
+	    public void testNullDataParameter_calculateRowTotal() {
+	        // Testing that calculateRowTotal throws IllegalArgumentException if data parameter is null
+	        Values2D data = null; // Data parameter is null
+	        DataUtilities.calculateRowTotal(data, 0);
+	    }
+	    
+	    @Test(expected = IllegalArgumentException.class)
+	    public void testNullDataParameter_calculateRowTotal_valid() {
+	        // Testing that calculateRowTotal throws IllegalArgumentException if data parameter is null
+	        Values2D data = null; // Data parameter is null
+	        int[] validCols = new int[] {0, 1}; // Valid columns parameter
+	        DataUtilities.calculateRowTotal(data, 0, validCols);
+	    }
+	    
+	    @Test(expected = IllegalArgumentException.class)
+	    public void testNullDataParameter_getCumulativePercentages() {
+	        // Testing that getCumulativePercentages throws IllegalArgumentException if data parameter is null
+	        KeyedValues data = null; // Data parameter is null
+	        DataUtilities.getCumulativePercentages(data);
+	    }
+	    
+	    
+	    @Test
+	    public void calculateColumnTotal_null() {
+	        mockingContext.checking(new Expectations() {
+	            {
+	                one(values).getRowCount();
+	                will(returnValue(2));
+	                one(values).getValue(0, 0);
+	                will(returnValue(1));
+	                one(values).getValue(1, 0);
+	                will(returnValue(null));
+	            }
+	        });
+	        
+	        
+	        
+	        
+	        double result = DataUtilities.calculateColumnTotal(values, 0);
+	        assertEquals(1.0, result, 0.000001); // Use a small delta parameter (e.g., 0.000001) for comparison
+
+	    }
+	    
+	    
+	    
+	    
+	    @Test
+	    public void calculateColumnTotal_null_valid() {
+	        mockingContext.checking(new Expectations() {
+	            {
+	                one(values).getRowCount();
+	                will(returnValue(2));
+	                one(values).getValue(0, 0);
+	                will(returnValue(1));
+	                one(values).getValue(1, 0);
+	                will(returnValue(null));
+	            }
+	        });
+	        
+	        
+	        
+	        
+		     int[] validRows = {0, 1}; // Assuming both rows are valid
+	        double result = DataUtilities.calculateColumnTotal(values, 0, validRows);
+	        assertEquals(1.0, result, 0.000001); // Use a small delta parameter (e.g., 0.000001) for comparison
+
+	    }
+	    
+	    
+	    
+		 @Test
+		 public void calculateRowTotalForTwoValues_null() {
+		     mockingContext.checking(new Expectations() {
+		         {
+		             one(values).getColumnCount();
+		             will(returnValue(2));
+		             one(values).getValue(0, 0);
+		             will(returnValue(6.5));
+		             one(values).getValue(0, 1);
+		             will(returnValue(null));
+		         }
+		     });
+		     double result = DataUtilities.calculateRowTotal(values, 0);
+		     assertEquals("Unexpected result for calculateRowTotal", 6.5, result, .000000001d);
+		 }
+
+
+	    
+	    
+		 @Test
+		 public void calculateRowTotalForTwoValues_null_valid() {
+		     mockingContext.checking(new Expectations() {
+		         {
+		             one(values).getColumnCount();
+		             will(returnValue(2));
+		             one(values).getValue(0, 0);
+		             will(returnValue(null));
+		             one(values).getValue(0, 1);
+		             will(returnValue(6.5));
+		         }
+		     });
+		     int[] validCol = {0, 1}; // Assuming both rows are valid
+		     double result = DataUtilities.calculateRowTotal(values, 0,validCol);
+		     assertEquals("Unexpected result for calculateRowTotal", 6.5, result, .000000001d);
+		 }
+
+	    
+	    
+		 
+		    @Test
+		    public void testEqual_differntvalues() {
+		        double[][] a = new double[][] { { 1.0, 2.0 }, { 3.0, 4.0 }, { 3.0, 4.0 } };
+		        double[][] b = new double[][] { { 2.0, 2.0 }, { 3.0, 4.0 }, { 3.0, 4.0 } };
+		        assertFalse(DataUtilities.equal(a, b));
+		    }
+ 
+			 @Test
+			 public void calculateColumnTotalForTwoValues_column_1() {
+			     mockingContext.checking(new Expectations() {
+			         {
+			             one(values).getRowCount();
+			             will(returnValue(2));
+			             one(values).getColumnCount();
+			             will(returnValue(2));
+			             one(values).getValue(0, 1);
+			             will(returnValue(7.5));
+			             one(values).getValue(1, 1);
+			             will(returnValue(2.5));
+			         }
+			     });
+			     double result = DataUtilities.calculateColumnTotal(values, 1);
+			     assertEquals(result, 10.0, .000000001d);
+			 }
+		    
+	    	  
+			 
+			 
+			 @Test
+			 public void calculateColumnTotalForTwoValues_column_1_valid() {
+			     mockingContext.checking(new Expectations() {
+			         {
+			             one(values).getRowCount();
+			             will(returnValue(2));
+			             one(values).getColumnCount();
+			             will(returnValue(2));
+			             one(values).getValue(0, 1);
+			             will(returnValue(7.5));
+			             one(values).getValue(1, 1);
+			             will(returnValue(2.5));
+			         }
+			     });
+			     int[] valid = {0,1};
+			     double result = DataUtilities.calculateColumnTotal(values, 1,valid);
+			     assertEquals(result, 10.0, .000000001d);
+			 }
+			 
+			 @Test
+			 public void calculateRowTotalForTwoValues_Row_1_valid() {
+			     mockingContext.checking(new Expectations() {
+			         {
+			             one(values).getRowCount();
+			             will(returnValue(2));
+			             one(values).getColumnCount();
+			             will(returnValue(2));
+			             one(values).getValue(1, 0);
+			             will(returnValue(7.5));
+			             one(values).getValue(1, 1);
+			             will(returnValue(2.5));
+			         }
+			     });
+			     int[] valid = {0,1};
+			     double result = DataUtilities.calculateRowTotal(values, 1,valid);
+			     assertEquals(result, 10.0, .000000001d);
+			 }
+			 
+			 
+			 @Test
+			 public void calculateRowTotalForTwoValues_row_1() {
+			     mockingContext.checking(new Expectations() {
+			         {
+			             one(values).getRowCount();
+			             will(returnValue(2));
+			             one(values).getColumnCount();
+			             will(returnValue(2));
+			             one(values).getValue(1, 0);
+			             will(returnValue(7.5));
+			             one(values).getValue(1, 1);
+			             will(returnValue(2.5));
+			         }
+			     });
+			     double result = DataUtilities.calculateRowTotal(values, 1);
+			     assertEquals(result, 10.0, .000000001d);
+			 }
+			 
+			 
+			 
+			 @Test
+			    public void calculateColumnTotalForThreeValues_but5entries_ValidRows() {
+			        // Testing the calculation of column total for two valid rows
+			        int[] validRows = {2};
+			        mockingContext.checking(new Expectations() {
+			            {
+			                one(values).getRowCount();
+			                will(returnValue(2));
+			                one(values).getValue(2, 0);
+			                will(returnValue(7.5));
+			            }
+			        });
+			        double result = DataUtilities.calculateColumnTotal(values, 0, validRows);
+			        assertEquals(result, 0, .000000001d);
+			    }
+
+			    @Test
+			    public void calculateRowTotalForinvalid() {
+			        // Testing the calculation of row total for two valid columns
+			        int[] validColums = {2};
+			        mockingContext.checking(new Expectations() {
+			            {
+			                one(values).getColumnCount();
+			                will(returnValue(2));
+			                one(values).getValue(0, 2);
+			                will(returnValue(6.5));
+			            }
+			        });
+			        double result = DataUtilities.calculateRowTotal(values, 0, validColums);
+			        assertEquals("Unexpected result for calculateRowTotal", 0, result, .000000001d);
+			    }
+
+
 }
