@@ -16,6 +16,7 @@
 
 # Report all the statistics and the mutation score for each test class
 DataUtilities:
+
 Original:
 ![old mutation](Images/DataUtilitiesOld.png)
 Updated:
