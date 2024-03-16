@@ -616,6 +616,7 @@ public class RangeTest {
         Range.expand(range1, 0.1, 0.1);
     }
     
+    
 //  ---------------------TESTING expandToInclude(Range range, double value)---------------------
     
     /**
@@ -1111,8 +1112,444 @@ public class RangeTest {
         Range range1 = null;
         String r_string = range1.toString();
     }
-
     
+    /*           NEW TESTS (Assignment 4 Killing Mutations)          */
+
+//  ---------------------TESTING intersects(double lower, double upper)---------------------
+
+//  This test aims to kill the mutation "changed conditional boundary → SURVIVED" by imagining
+//  a range with a lower bound of 5.0 which is the upper bound of the example range.
+    @Test
+    public void intersectionSwappingBounds() {
+    	double upper = 10.0;
+    	double lower = 5.0;
+//    	There is no overlap between the imaginary range and the exampleRange so method should return false for intersection
+    	assertFalse("The example range should not intersect with this new range ", exampleRange.intersects(lower, upper));
+    }
+    
+//  This test aims to kill the mutation "changed conditional boundary → SURVIVED" by imagining
+//  a range with a upper bound of -5.0 which is the lower bound of the example range.
+    @Test
+    public void intersectionSwappingBounds2() {
+    	double upper = -5.0;
+    	double lower = -10.0;
+//    	There is no overlap between the imaginary range and the exampleRange so method should return false for intersection
+    	assertFalse("The example range should not intersect with this new range ", exampleRange.intersects(lower, upper));
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve post incrementing
+     * the lower bound in the statement "if (b0 <= this.lower) {".
+     */
+    @Test
+    public void intersectionPostIncrementLower() {
+    	Range range1 = new Range (-5.02, 5);
+    	double upper = -4.03;
+    	double lower = -4.05;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	boolean tempIntersect2 = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two intersection results should not be equal", tempIntersect, tempIntersect2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve pre-incrementing
+     * the lower bound in the statement "if (b0 <= this.lower) {".
+     */
+    @Test
+    public void intersectionPreIncrementLower() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = -3.99;
+    	double lower = -6.0;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	boolean tempIntersect2 = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two intersection results should not be equal", tempIntersect, tempIntersect2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve post incrementing
+     * the lower bound in the statement "return (b1 > this.lower);".
+     */
+    @Test
+    public void intersectionPostIncrementLower2() {
+    	Range range1 = new Range (-5.02, 5);
+    	double upper = -4.04;
+    	double lower = -6.0;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	boolean tempIntersect2 = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two intersection results should not be equal", tempIntersect, tempIntersect2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve post decrementing
+     * the lower bound in the statement "return (b1 > this.lower);".
+     */
+    @Test
+    public void intersectionPostDecrementLower() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = -5;
+    	double lower = -6;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	boolean tempIntersect2 = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two intersection results should not be equal", tempIntersect, tempIntersect2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve pre-decrementing
+     * the lower bound in the statement "return (b1 > this.lower);".
+     */
+    @Test
+    public void intersectionPreDecrementLower() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = -3.5;
+    	double lower = -6;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	boolean tempIntersect2 = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two intersection results should not be equal", tempIntersect, tempIntersect2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve post Incrementing
+     * the upper bound in the statement "return (b0 < this.upper && b1 >= b0);".
+     */
+    @Test
+    public void intersectionPostIncrementUpper() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = 5.5;
+    	double lower = -4;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	boolean tempIntersect2 = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two intersection results should not be equal", tempIntersect, tempIntersect2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve post Decrementing
+     * the upper bound in the statement "return (b0 < this.upper && b1 >= b0);".
+     */
+    @Test
+    public void intersectionPostDecrementUpper() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = 4.5;
+    	double lower = -4;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	boolean tempIntersect2 = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two intersection results should not be equal", tempIntersect, tempIntersect2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve pre-Decrementing
+     * the upper bound in the statement "return (b0 < this.upper && b1 >= b0);".
+     */
+    @Test
+    public void intersectionPreDecrementUpper() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = 3.5;
+    	double lower = -4;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	boolean tempIntersect2 = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two intersection results should not be equal", tempIntersect, tempIntersect2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve Incrementing and Decrementing
+     * the upper bound in the statement "return (b0 < this.upper && b1 >= b0);".
+     */
+    @Test
+    public void intersectionIncDecUpper() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = 3.5;
+    	double lower = -4;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	
+    	assertEquals("These two upper bound values should not be equal", 5.0, range1.getUpperBound(), 0.000000001d);
+    }
+    
+    /**
+     * Test case that aims to kill mutation of replacing conditional statement with true
+     * for the following statement "return (b0 < this.upper && b1 >= b0);"
+     */
+    @Test
+    public void intersectionReplaceConditionalWithTrue() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = 1;
+    	double lower = 2;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	
+    	assertFalse("Intersection result should be false", tempIntersect);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involve negating this.upper and this.lower
+     */
+    @Test
+    public void intersection2() {
+    	Range range1 = new Range (-5, 5);
+    	double upper = 1;
+    	double lower = -6;
+    	
+    	boolean tempIntersect = range1.intersects(lower, upper);
+    	
+    	assertTrue("Intersection result should be true", tempIntersect);
+    }
+    
+//  ---------------------TESTING constrain(double value)---------------------
+    
+    /**
+     * Test case aims to kill mutations that involve post Incrementing/Decrementing
+     * the upper bound in the statement "result = this.upper;".
+     */
+  @Test
+  public void constrainedUpperIncrementDecrement() {
+  	double value = 8.0;
+  	double constrainResult = exampleRange.constrain(value);
+  	double constrainResult2 = exampleRange.constrain(value);
+  	assertEquals("Constrained values should not be the same ", constrainResult, constrainResult2, 0.000000001d);
+  }
+  
+  /**
+   * Test case aims to kill mutations that involve post Incrementing/Decrementing
+   * the lower bound in the statement "result = this.lower;".
+   */
+@Test
+public void constrainedLowerIncrementDecrement() {
+	double value = -8.0;
+	double constrainResult = exampleRange.constrain(value);
+	double constrainResult2 = exampleRange.constrain(value);
+	assertEquals("Constrained values should not be the same ", constrainResult, constrainResult2, 0.000000001d);
+}
+
+/**
+ * Test case aims to kill mutations that involves negating this.upper
+ * in the statement "if (value > this.upper) {".
+ */
+@Test
+public void constrainedNegatedUpper() {
+	Range range1 = new Range (-5, 10);
+	double value = -6.0;
+	double constrainResult = range1.constrain(value);
+	assertEquals("Constrained value should be -5 ", -5, constrainResult, 0.000000001d);
+}
+
+
+
+//  ---------------------TESTING getCentralValue()---------------------
+    
+    /**
+     * Test case aims to kill mutations that involve post incrementing/decrementing
+     * the upper and lower bounds.
+     */
+    @Test
+    public void centralValuePostIncrementDecrement() {
+        Range range1 = new Range(-10, 10);
+        double tempCentral = range1.getCentralValue();
+        double tempCentral2 = range1.getCentralValue();
+        assertEquals("The two central values should not be the same", tempCentral, tempCentral2, 0.000000001d);
+    }
+    
+//  ---------------------TESTING toString()---------------------
+    
+    /**
+     * Test case aims to kill mutations that involve post incrementing/decrementing
+     * the upper and lower bounds.
+     */
+    @Test
+    public void toStringPostIncrementDecrement() {
+        Range range1 = new Range (1, 10);
+        String r_string = range1.toString();
+        String r_string2 = range1.toString();
+        assertEquals("These two strings should not be equal", r_string, r_string2);
+    }
+    
+//  ---------------------TESTING equals(Object obj)---------------------
+
+    /**
+     * Test case aims to kill mutations that involves switching equals to greater or equal
+     * in the statement "if (!(this.lower == range.lower)) {".
+     */
+    @Test
+    public void equalsSwitchtoGreaterEqual() {
+        Range range1 = new Range(3, 10);
+        Range range2 = new Range(2, 10);
+        boolean eq = range1.equals(range2);
+        assertFalse("Range 1 and Range 2 are not equal", eq);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involves post incrementing lower bound
+     * in the statement "if (!(this.lower == range.lower)) {".
+     */
+    @Test
+    public void equalsPostIncrementLower() {
+        Range range1 = new Range(-1, 10);
+        Range range2 = new Range(0, 10);
+        boolean eq = range1.equals(range2);
+        boolean eq2 = range1.equals(range2);
+        assertFalse("Range 1 and Range 2 are not equal", eq);
+        assertFalse("Range 1 and Range 2 are not equal", eq2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involves post decrementing lower bound
+     * in the statement "if (!(this.lower == range.lower)) {".
+     */
+    @Test
+    public void equalsPostDecrementLower() {
+        Range range1 = new Range(1, 10);
+        Range range2 = new Range(0, 10);
+        boolean eq = range1.equals(range2);
+        boolean eq2 = range1.equals(range2);
+        assertFalse("Range 1 and Range 2 are not equal", eq);
+        assertFalse("Range 1 and Range 2 are not equal", eq2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involves switching equals to less or equal
+     * in the statement "if (!(this.upper == range.upper)) {".
+     */
+    @Test
+    public void equalsSwitchtoLessEqual2() {
+        Range range1 = new Range(1, 8);
+        Range range2 = new Range(1, 9);
+        boolean eq = range1.equals(range2);
+        assertFalse("Range 1 and Range 2 are not equal", eq);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involves post incrementing upper bound
+     * in the statement "if (!(this.upper == range.upper)) {".
+     */
+    @Test
+    public void equalsPostIncrementUpper() {
+        Range range1 = new Range(1, 9);
+        Range range2 = new Range(1, 10);
+        boolean eq = range1.equals(range2);
+        boolean eq2 = range1.equals(range2);
+        assertFalse("Range 1 and Range 2 are not equal", eq);
+        assertFalse("Range 1 and Range 2 are not equal", eq2);
+    }
+    
+    /**
+     * Test case aims to kill mutations that involves post decrementing upper bound
+     * in the statement "if (!(this.upper == range.upper)) {".
+     */
+    @Test
+    public void equalsPostDecrementUpper() {
+        Range range1 = new Range(1, 11);
+        Range range2 = new Range(0, 10);
+        boolean eq = range1.equals(range2);
+        boolean eq2 = range1.equals(range2);
+        assertFalse("Range 1 and Range 2 are not equal", eq);
+        assertFalse("Range 1 and Range 2 are not equal", eq2);
+    }
+    
+//  ---------------------TESTING Range(double lower, double upper)---------------------
+    
+    /**
+     * Test case aims to kill mutations that in second for loop of 
+     * expand method starting with statement "if (lower > upper) {".
+     */
+    @Test
+    public void expandSecondIfStatement() {
+        Range range1 = new Range(0, 100);
+        Range range1_e = Range.expand(range1, -1, -0.5);
+        Range range2 = new Range(75, 75);
+
+        boolean eq = range1_e.equals(range2);
+        assertTrue("Range 1 is expanded", eq);
+    }
+    
+//  ---------------------TESTING isNaNRange()---------------------
+    
+    /**
+     * Test case aims to kill mutation that involves incrementing and decrementing lower bound.
+     */
+    @Test 
+    public void isNaNIncrementDecrementLower() {
+        Range range1 = new Range (1, 10);
+        boolean placeHolder = range1.isNaNRange();
+        assertEquals("The lower bound values should be the same", 1, range1.getLowerBound(), 0.000000001d);
+    }
+    
+    /**
+     * Test case aims to kill mutation that involves incrementing and decrementing upper bound.
+     */
+    @Test 
+    public void isNaNIncrementDecrementUpper() {
+        Range range1 = new Range (1, 10);
+        boolean placeHolder = range1.isNaNRange();
+        assertEquals("The upper bound values should be the same", 10, range1.getUpperBound(), 0.000000001d);
+    }
+    
+    
+//  ---------------------TESTING combineIgnoringNaN(Range range1, Range range2)---------------------
+
+    /**
+     * Test case that aims to kill mutation of replacing conditional statement with true
+     * for the following statement "if (range2 != null && range2.isNaNRange()) {"
+     */
+    @Test
+    public void combineIgnoringNaNReplaceConditionalWithTrue() {
+        Range range1 = null;
+        Range range2 = new Range(5, 6);
+        Range range3 = Range.combineIgnoringNaN(range1, range2);
+        assertEquals("Range2 should return", range2, range3);
+    }
+    
+    /**
+     * Test case that aims to kill mutation of replacing conditional statement with true
+     * for the following statement "if (range1.isNaNRange()) {"
+     */
+    @Test
+    public void combineIgnoringNaNReplaceConditionalWithTrue2() {
+        Range range1 = new Range(5, 6);
+        Range range2 = null;
+        Range range3 = Range.combineIgnoringNaN(range1, range2);
+        assertEquals("Range1 should return", range1, range3);
+    }
+    
+    /**
+     * Test case that aims to kill mutation of replacing conditional statement with false
+     * for the following statement "if (Double.isNaN(l) && Double.isNaN(u)) {"
+     */
+    @Test
+    public void combineIgnoringNaNReplaceConditionalWithFalse() {
+        Range range1 = new Range(5, 8);
+        Range range2 = new Range(6, 7);
+        Range range3 = Range.combineIgnoringNaN(range1, range2);
+        Range range4 = new Range(5, 8);
+        assertEquals("Range4 should return", range4, range3);
+    }
+    
+//  ---------------------TESTING hashCode() ---------------------
+    
+    /**
+     * Test case aims to kill mutations for hashCode method where 32 is being substituted
+     * and the XOR is switched to AND.
+     */
+    @Test
+    public void hashCodeSubstitutionsAndSwitches() {
+        Range range1 = new Range(1, 10);
+        int hashed = range1.hashCode();
+        int num = 2119434240;
+        assertEquals("The hash code for the range should be 2119434240", num, hashed, 0.000000001d);
+    }
 
     @After
     public void tearDown() throws Exception {

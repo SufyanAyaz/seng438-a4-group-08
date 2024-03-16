@@ -1,0 +1,3 @@
+# Important Note
+
+> The files inside this test suite are from the previous assignment with the addition of new tests for coverage added to them. In order to save time, simply scroll to the comment stating "NEW TESTS (Assignment 4 Killing Mutations)" for the RangeTest file or "NEW MUTATION TESTS" for the DataUtilites file to go to the beginning of where the new tests added for mutations in Assignment 4 begin. Thanks!!!
