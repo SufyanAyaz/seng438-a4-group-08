@@ -68,10 +68,10 @@
 ## Range Class:
 
 Original Mutation Score:
-![original range class mutation score](Images\RangeOriginalMutationScore.jpg)
+![original range class mutation score](Images/RangeOriginalMutationScore.jpg)
 
 Updated Mutation Score:
-![updated range class mutation score](Images\RangeUpdatedMutationScore.jpg)
+![updated range class mutation score](Images/RangeUpdatedMutationScore.jpg)
 
 > When we ran the PITEST software on the original test suite for the range class, we were able to achieve a line coverage of 98%, a mutation coverage score of 71%, and a test strength of 74%. After incorporating additional test cases to the Range class test suite, we were able to increase the line coverage metric to 100%, the mutation coverage score metric to 82%, and the test strength metric to 82% as well.
 
