@@ -10,7 +10,7 @@
 | Student 4: Taha Khan                |
 
 # Introduction
-
+In this lab, we were given the task of mutation testing two classes from the JFreeChart framework (our SUT) that we have been developing a test suite for, Range (org.jfree.data.Range), and DataUtilities (org.jfree.data.DataUtilities). The purpose of this lab is to introduce us to the concept of mutation testing, which can be used to increase the effectiveness of our test suite by observing if the existing suite is able to cover newly introduced flaws and faults from a modified version of the original source code. The effectiveness of the suite is tested by running the mutants through the tests. The second part of the lab is the introduction to GUI testing using Selenium, to record and playback scripted steps various times with different parameters to ensure that the SUT’s GUI is accurate and providing correct, accurate, and user-friendly feedback to the user. 
 
 # Analysis of 10 Mutants of the Range class 
 
