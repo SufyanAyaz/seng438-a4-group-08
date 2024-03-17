@@ -132,6 +132,28 @@ We first familiarized ourselves with the SUT, eBay in our case, so that we under
 # how did you test each functionaity with different test data
 
 # Discuss advantages and disadvantages of Selenium vs. Sikulix
+## Selenium Pros
+* Intuitive and easy to use
+* Well documented
+* Step recording function is very useful
+* Robust set of commands
+* Simple syntax
+* Widely range of compatibility 
+
+## Selenium Cons
+* Only supports web based applications
+* Unreliable tests sometimes
+
+## Sikulix Pros
+* Image-based steps
+* Supports multiple types of applications and platforms
+
+## Sikulix Cons
+* Poorly documented
+* Confusing UI
+* Compatibility issues (especially on MacOS)
+* Slow execution
+* No step recording
 
 # How the team work/effort was divided and managed
 
