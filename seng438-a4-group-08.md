@@ -124,6 +124,8 @@ The biggest disadvantage of mutation testing is that it is very computationally 
 
 
 # Explain your SELENUIM test case design process
+We first familiarized ourselves with the SUT, eBay in our case, so that we understood the various functions of the page and knew what we were working with. We then familiarized ourselves with Selenium, especially the assertion and verification methods, so we knew the limitations of what we could and couldn;t test. Then we went back to the SUT and tried to reconcile this information and find functions that possess several cases and/or inputs that would be relevant to the user experience, as well as functions we felt were fundamental to the user experience. While end-to-end coverage of the *entire* site's functionality is unrealistic, we tried to think of cases that would be relevant to a real user. 
+
 
 # Explain the use of assertions and checkpoints
 
