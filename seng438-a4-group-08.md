@@ -131,6 +131,7 @@ We first familiarized ourselves with the SUT, eBay in our case, so that we under
 The point of using assertions and checkpoints is to make sure that the tests are runnig corectly and that the correct outcome is being achieved. Throughout the tests for different functionalities, assertions were used to make sure that the outcome of the tests were correct in order for the test to pass. For example, while testing to see what the out come of trying to login witht he incorrect email, an assertion was used at the end to see if there was a message stating that the wrong email was used. The test would pass if there was a message, otherwise it would fail. Assertion was used similarly for other tests to see if the correct message/output was displayed. Checkpoints are used to verify that certain conditions or elements are present on a web page during test execution. They are essential for validating the expected behavior of a website and ensuring that the test cases are functioning correctly. They are different to assertions as they do not cause the test cases to execute incase of a failure.
 
 # how did you test each functionaity with different test data
+The functionalities were tested with different data based on how they are used and what the possible outcomes could be. Because of this, each functionality differed in the variety of data that could be used as certain functionalities have only one purpose, while other can do more. An example of how different test data was used would be in the login feature. The login feature had three different test cases where each case tests different data and output. As it is common for users to make mistakes while typing, the test cases included having one test case where the correct login information was used, one test case where the email was incorrect and one test where the password was incorrect. Each test case has a different purpose and makes sure to see whether the correct warnings or ouputs are achieved. Similar to this, other functionalities also had multiple test cases to test different outcomes.
 
 # Discuss advantages and disadvantages of Selenium vs. Sikulix
 ## Selenium Pros
@@ -157,7 +158,7 @@ The point of using assertions and checkpoints is to make sure that the tests are
 * No step recording
 
 # How the team work/effort was divided and managed
-
+For this lab, we used to discord to communicate with each other. Before moving onto any testing, we went through the lab document, and the familiarization portion of the lab together to make sure that we all understood what the puspose of this lab was. We also made sure that the JFree artifacts and selenium were setup properly before we more on further. Once everything was setup correctly, we split up into pairs, where one pair attempted the mutation testing and the other pair attempted the GUI testing. After both pairs had completed their parts, we regrouped and familiarized ourselfs with the work that the other pair had done. Once we understood what the other pair had done, we went over and checked through each other's work to make sure that it was done correctly. This not only minimized any issues that could potientially occur, but also gave each of us a good understanding of the whole lab.
 
 # Difficulties encountered, challenges overcome, and lessons learned
 
