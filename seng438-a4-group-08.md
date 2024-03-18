@@ -128,6 +128,7 @@ We first familiarized ourselves with the SUT, eBay in our case, so that we under
 
 
 # Explain the use of assertions and checkpoints
+The point of using assertions and checkpoints is to make sure that the tests are runnig corectly and that the correct outcome is being achieved. Throughout the tests for different functionalities, assertions were used to make sure that the outcome of the tests were correct in order for the test to pass. For example, while testing to see what the out come of trying to login witht he incorrect email, an assertion was used at the end to see if there was a message stating that the wrong email was used. The test would pass if there was a message, otherwise it would fail. Assertion was used similarly for other tests to see if the correct message/output was displayed. Checkpoints are used to verify that certain conditions or elements are present on a web page during test execution. They are essential for validating the expected behavior of a website and ensuring that the test cases are functioning correctly. They are different to assertions as they do not cause the test cases to execute incase of a failure.
 
 # how did you test each functionaity with different test data
 
